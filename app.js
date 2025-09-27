@@ -7,11 +7,9 @@ const initPassport = require("./config/passport");
 
 const app = express();
 
-// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Session
 app.use(
   session({
     secret: "mysecretkey",
@@ -20,15 +18,12 @@ app.use(
   })
 );
 
-// Passport
 app.use(passport.initialize());
 app.use(passport.session());
 initPassport(passport);
 
-// Routes
 app.use("/auth", authRoutes);
 
-// MongoDB connect
 mongoose
   .connect("mongodb://127.0.0.1:27017/passport_local_demo")
   .then(() => {
